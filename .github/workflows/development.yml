@@ -19,8 +19,7 @@ jobs:
           - platform: 2
             platform_name: ios
               
-    
-    runs-on: MacStadium
+    runs-on: macos-latest # Updated to use GitHub's macOS runner
     steps:
       - name: Remove work folders
         env:
@@ -34,18 +33,18 @@ jobs:
           ls -lah ./
           
       - name: Checkout repository
-        uses: actions/checkout@main
+        uses: actions/checkout@v2 # Use v2 for actions checkout
 
       - name: Checkout repository submodules
         run: git submodule update --init --recursive
           
       - name: Get gl4es latest commit hash
         id: gl4es-sha
-        run: echo "::set-output name=sha::$(echo $(git ls-remote https://github.com/PojavLauncherTeam/gl4es-114-extra refs/heads/master | grep -io '^\S*'))"
+        run: echo "::set-output name=sha::$(git ls-remote https://github.com/PojavLauncherTeam/gl4es-114-extra refs/heads/master | grep -io '^\S*')"
         shell: bash
 
       - name: Cache gl4es
-        uses: actions/cache@main
+        uses: actions/cache@v2 # Updated to v2
         if: false # use gl4es 1.1.5
         id: gl4es-cache
         with:
@@ -54,7 +53,7 @@ jobs:
 
       - name: Get gl4es
         if: false && steps.gl4es-cache.outputs.cache-hit != 'true'
-        uses: actions/checkout@main
+        uses: actions/checkout@v2
         with:
           repository: 'PojavLauncherTeam/gl4es-114-extra'
           path: 'gl4es'
@@ -66,7 +65,6 @@ jobs:
           cd gl4es
           git config --global user.email "github-actions@users.noreply.github.com"
           git config --global user.name "github-actions"
-          export PATH=/opt/procursus/bin:$PATH
           wget https://github.com/leetal/ios-cmake/raw/master/ios.toolchain.cmake
           cmake -B build -DCMAKE_TOOLCHAIN_FILE=ios.toolchain.cmake -DDEFAULT_ES=2 \
             -DNOX11=ON -DNOEGL=OFF -DSTATICLIB=OFF -DPLATFORM=OS64 \
@@ -85,36 +83,33 @@ jobs:
       - name: Get JRE8
         uses: dawidd6/action-download-artifact@v2
         with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: build.yml
           path: depends
           allow_forks: false
           repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          #commit: c62cba05414d02acc65ab1483259271398feb6f9
           run_id: 10210841703
           name: jre8-ios-aarch64
 
       - name: Get JRE17
         uses: dawidd6/action-download-artifact@v2
         with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: build.yml
           path: depends
           allow_forks: false
           repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          #branch: buildjre17-21
           commit: 691cab34d782921f812d2d3f3eed4951a271cf23
           name: jre17-ios-aarch64
 
       - name: Get JRE21
         uses: dawidd6/action-download-artifact@v2
         with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: build.yml
           path: depends
           allow_forks: false
           repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          #branch: buildjre17-21
           commit: 691cab34d782921f812d2d3f3eed4951a271cf23
           name: jre21-ios-aarch64
 
@@ -122,38 +117,37 @@ jobs:
         env:
           password: ${{ secrets.ELLIE_MINI_SECRET }}
         run: |
-          export PATH=/opt/procursus/bin:/opt/homebrew/bin:$PATH
           export RUNNER=1 SLIMMED=1
           # Build ipa and tipa for iOS
           make -j$(sysctl -n hw.ncpu) dsym package PLATFORM=${{ matrix.platform }}
           make -j$(sysctl -n hw.ncpu) dsym package PLATFORM=${{ matrix.platform }} TROLLSTORE_JIT_ENT=1
 
       - name: Upload regular ipa
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v2
         with:
           name: net.kdt.pojavlauncher-${{ matrix.platform_name }}.ipa
           path: artifacts/net.kdt.pojavlauncher-*-${{ matrix.platform_name }}.ipa
 
       - name: Upload regular tipa
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v2
         with:
           name: net.kdt.pojavlauncher-${{ matrix.platform_name }}-trollstore.tipa
           path: artifacts/net.kdt.pojavlauncher-*-${{ matrix.platform_name }}-trollstore.tipa
 
       - name: Upload slimmed ipa
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v2
         with:
           name: net.kdt.pojavlauncher.slimmed-${{ matrix.platform_name }}.ipa
           path: artifacts/net.kdt.pojavlauncher.slimmed-*-${{ matrix.platform_name }}.ipa
 
       - name: Upload slimmed tipa
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v2
         with:
           name: net.kdt.pojavlauncher.slimmed-${{ matrix.platform_name }}-trollstore.tipa
           path: artifacts/net.kdt.pojavlauncher.slimmed-*-${{ matrix.platform_name }}-trollstore.tipa
 
       - name: Upload PojavLauncher.dSYM
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v2
         if: matrix.platform_name == 'ios'
         with:
           name: PojavLauncher.dSYM
