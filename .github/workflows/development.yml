@@ -39,13 +39,18 @@ jobs:
       - name: Checkout repository submodules
         run: git submodule update --init --recursive
         
+      - name: Install Rosetta
+        run: |
+          softwareupdate --install-rosetta --agree-to-license
+
       - name: Install OpenJDK 8
         run: |
-          brew install openjdk@8
+          arch -x86_64 brew install openjdk@8
           echo "JAVA_HOME=$(brew --prefix openjdk@8)" >> $GITHUB_ENV
 
       - name: Verify JDK installation
-        run: java -version
+        run: |
+          arch -x86_64 java -version
           
       - name: Get gl4es latest commit hash
         id: gl4es-sha
