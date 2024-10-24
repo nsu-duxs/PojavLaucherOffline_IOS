@@ -44,12 +44,10 @@ jobs:
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           
       - name: Set up JDK 8
-        continue-on-error: true
-        run: |
-          brew tap AdoptOpenJDK/openjdk
-          brew install --cask homebrew/cask-versions/adoptopenjdk8
-          export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-          echo "JAVA_HOME set to $JAVA_HOME"
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "8"
           
       - name: Get gl4es latest commit hash
         id: gl4es-sha
