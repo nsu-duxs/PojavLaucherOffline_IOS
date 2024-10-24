@@ -43,10 +43,11 @@ jobs:
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-      #- name: Install JDK 8
-        #run: |
-          #brew tap AdoptOpenJDK/openjdk
-          #brew install --cask adoptopenjdk8
+      - name: Install JDK 8
+        continue-on-error: true
+        run: |
+          brew tap AdoptOpenJDK/openjdk
+          brew install --cask adoptopenjdk8
 
       - name: Get gl4es latest commit hash
         id: gl4es-sha
