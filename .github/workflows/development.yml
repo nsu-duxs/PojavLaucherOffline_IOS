@@ -39,18 +39,16 @@ jobs:
       - name: Checkout repository submodules
         run: git submodule update --init --recursive
         
-      - name: Install Rosetta
-        run: |
-          softwareupdate --install-rosetta --agree-to-license
-
       - name: Install OpenJDK 8
         run: |
-          arch -x86_64 brew install openjdk@8
-          echo "JAVA_HOME=$(brew --prefix openjdk@8)" >> $GITHUB_ENV
+          # Download OpenJDK 8 (Make sure to get a compatible version for your architecture)
+          curl -L -O https://download.java.net/java/GA/jdk8/251/binaries/jdk-8u251-macosx-x64.pkg
+          sudo installer -pkg jdk-8u251-macosx-x64.pkg -target /
+          echo "JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home" >> $GITHUB_ENV
 
       - name: Verify JDK installation
-        run: |
-          arch -x86_64 java -version
+        run: java -version
+
           
       - name: Get gl4es latest commit hash
         id: gl4es-sha
