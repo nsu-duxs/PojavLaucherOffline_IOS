@@ -119,9 +119,11 @@ jobs:
           name: jre21-ios-aarch64
 
       - name: Install JDK 8
+        env:
+          PASSWORD: ${{ secrets.ELLIE_MINI_SECRET }}
         run: |
-          brew tap adoptopenjdk/openjdk
-          brew install --cask adoptopenjdk8
+          echo $PASSWORD | sudo -S brew tap adoptopenjdk/openjdk
+          echo $PASSWORD | sudo -S brew install --cask adoptopenjdk8
 
       - name: Build for ${{ matrix.platform_name }}
         env:
