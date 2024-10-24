@@ -120,8 +120,8 @@ jobs:
 
       - name: Install JDK 8
         run: |
-          sudo brew tap adoptopenjdk/openjdk
-          sudo brew install --cask adoptopenjdk8
+          brew tap adoptopenjdk/openjdk
+          brew install --cask adoptopenjdk8
 
       - name: Build for ${{ matrix.platform_name }}
         env:
