@@ -38,17 +38,6 @@ jobs:
 
       - name: Checkout repository submodules
         run: git submodule update --init --recursive
-        
-      - name: Install OpenJDK 8
-        run: |
-          # Download OpenJDK 8 (Make sure to get a compatible version for your architecture)
-          curl -L -O https://download.java.net/java/GA/jdk8/251/binaries/jdk-8u251-macosx-x64.pkg
-          sudo installer -pkg jdk-8u251-macosx-x64.pkg -target /
-          echo "JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home" >> $GITHUB_ENV
-
-      - name: Verify JDK installation
-        run: java -version
-
           
       - name: Get gl4es latest commit hash
         id: gl4es-sha
@@ -130,10 +119,11 @@ jobs:
           name: jre21-ios-aarch64
 
       - name: Build for ${{ matrix.platform_name }}
+        continue-on-error: true
         env:
           password: ${{ secrets.ELLIE_MINI_SECRET }}
         run: |
-          #export PATH=/opt/procursus/bin:/opt/homebrew/bin:$PATH
+          export PATH=/opt/procursus/bin:/opt/homebrew/bin:$PATH
           export RUNNER=1 SLIMMED=1
           # Build ipa and tipa for iOS
           make -j$(sysctl -n hw.ncpu) dsym package PLATFORM=${{ matrix.platform }}
