@@ -117,6 +117,8 @@ jobs:
           #branch: buildjre17-21
           commit: 691cab34d782921f812d2d3f3eed4951a271cf23
           name: jre21-ios-aarch64
+      - name: get gmake
+        run: brew install gmake
 
       - name: Build for ${{ matrix.platform_name }}
         env:
