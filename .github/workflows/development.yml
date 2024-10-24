@@ -118,6 +118,11 @@ jobs:
           commit: 691cab34d782921f812d2d3f3eed4951a271cf23
           name: jre21-ios-aarch64
 
+      - name: Install JDK 8
+        run: |
+          brew tap adoptopenjdk/openjdk
+          brew install --cask adoptopenjdk8
+
       - name: Build for ${{ matrix.platform_name }}
         env:
           password: ${{ secrets.ELLIE_MINI_SECRET }}
