@@ -41,11 +41,11 @@ jobs:
         
       - name: Install OpenJDK 8
         run: |
-          brew tap homebrew/cask-versions
-          brew install --cask temurin8
+          brew install openjdk@8
+          echo "JAVA_HOME=$(brew --prefix openjdk@8)" >> $GITHUB_ENV
 
-      - name: Set JAVA_HOME
-        run: echo "JAVA_HOME=$(brew --prefix temurin8)" >> $GITHUB_ENV
+      - name: Verify JDK installation
+        run: java -version
           
       - name: Get gl4es latest commit hash
         id: gl4es-sha
