@@ -45,8 +45,7 @@ jobs:
         run: git submodule update --init --recursive
       - name: Install JDK 8
         run: |
-          curl -L -O https://download.java.net/java/GA/jdk8/251/binaries/jdk-8u251-macosx-x64.pkg
-          sudo installer -pkg jdk-8u251-macosx-x64.pkg -target /
+          curl -L -O https://www.oracle.com/webapps/redirect/signon?nexturl=https://download.oracle.com/otn/java/jdk/8u202-b08/1961070e4c9b4e26a04e7f5a083f551e/jdk-8u202-macosx-x64.dmg -target /
           echo "BOOTJDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home" >> $GITHUB_ENV
       
       - name: Get gl4es latest commit hash
