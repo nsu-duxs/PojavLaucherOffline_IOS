@@ -50,7 +50,9 @@ jobs:
           java-version: '8'
 
       - name: Check JDK path
-        run: /usr/libexec/java_home -v 1.8
+        run: | 
+          /usr/libexec/java_home -v 1.8
+          java -version
 
       - name: Run make
         run: make
