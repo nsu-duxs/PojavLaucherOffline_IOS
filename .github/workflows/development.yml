@@ -20,7 +20,7 @@ jobs:
             platform_name: ios
 
     
-    runs-on: MacStadium
+    runs-on: macos-latest
     steps:
       - name: Remove work folders
         env:
