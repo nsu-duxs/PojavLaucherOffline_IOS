@@ -89,7 +89,6 @@ jobs:
           path: depends
           allow_forks: false
           repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          branch: buildjre8
           commit: c62cba05414d02acc65ab1483259271398feb6f9
           name: jre8-ios-aarch64
 
