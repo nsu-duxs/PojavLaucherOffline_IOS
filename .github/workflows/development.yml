@@ -39,26 +39,21 @@ jobs:
       - name: Checkout repository submodules
         run: git submodule update --init --recursive
 
-      - name: Install Homebrew
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#      - name: Install Homebrew
+#        run: |
+#          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           
       - name: Set up JDK 8
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '8'
 
-      - name: Set up JDK 8
-        run: |
-          export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-          echo "JAVA_HOME set to $JAVA_HOME"
-          java -version
-          javac -version
+      - name: Check JDK path
+        run: /usr/libexec/java_home -v 1.8
 
-      - name: Build with Makefile
-        run: |
-          make all
+      - name: Run make
+        run: make
           
       - name: Get gl4es latest commit hash
         id: gl4es-sha
