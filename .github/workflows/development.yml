@@ -95,7 +95,7 @@ jobs:
           path: depends
           workflow_conclusion: success
           allow_forks: false
-          repo: nsu-duxs/openjdk-build-multiarch
+          repo: PojavLauncherTeam/android-openjdk-build-multiarch
           branch: buildjre8
           name: jre8-ios-aarch64
 
@@ -107,7 +107,7 @@ jobs:
           path: depends
           workflow_conclusion: completed
           allow_forks: false
-          repo: nsu-duxs/openjdk-build-multiarch
+          repo: PojavLauncherTeam/android-openjdk-build-multiarch
           branch: buildjre17-21
           name: jre17-ios-aarch64
 
@@ -119,7 +119,7 @@ jobs:
           path: depends
           workflow_conclusion: completed
           allow_forks: false
-          repo: nsu-duxs/openjdk-build-multiarch
+          repo: PojavLauncherTeam/android-openjdk-build-multiarch
           branch: buildjre17-21
           name: jre21-ios-aarch64
 
