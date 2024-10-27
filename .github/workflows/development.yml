@@ -50,8 +50,8 @@ jobs:
 
       - name: Install JDK 8
         run: |
-          brew tap caskroom/cask
-          brew tap caskroom/versions
+          brew tap homebrew/cask
+          brew tap homebrew/versions
           brew cask info java8
           brew cask install java8
 
