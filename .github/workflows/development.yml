@@ -147,8 +147,8 @@ jobs:
           export RUNNER=1 SLIMMED=1
           if [ "ios" == "ios" ]; then
             # Build ipa and tipa for iOS
-            cmake -j$(sysctl -n hw.ncpu) dsym package PLATFORM=2
-            cmake -j$(sysctl -n hw.ncpu) dsym package PLATFORM=2 TROLLSTORE_JIT_ENT=1
+            make -j$(sysctl -n hw.ncpu) dsym package PLATFORM=2
+            make -j$(sysctl -n hw.ncpu) dsym package PLATFORM=2 TROLLSTORE_JIT_ENT=1
           elif [ "ios" == "tvos" ]; then
             # Build tipa only for tvOS
             make -j$(sysctl -n hw.ncpu) dsym package PLATFORM=2 TROLLSTORE_JIT_ENT=1
