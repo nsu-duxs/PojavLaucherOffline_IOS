@@ -51,7 +51,7 @@ OSVER       := $(shell sw_vers -productVersion | cut -b 1-2)
 ifeq ($(shell sw_vers -productName),macOS)
 IOS         := 0
 SDKPATH     ?= $(shell xcrun --sdk iphoneos --show-sdk-path)
-BOOTJDK     ?= $(shell /usr/libexec/java_home -v 1.8)/bin # run "brew install openjdk@8"
+BOOTJDK     ?= $(shell /usr/libexec/java_home -v 17)/bin # ou outro caminho para o JDK 17
 $(warning Building on macOS.)
 else
 IOS         := 1
