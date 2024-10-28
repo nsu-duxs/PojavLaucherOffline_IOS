@@ -179,13 +179,15 @@ ifneq ($(call METHOD_DEPCHECK,cmake --version),1)
 $(error You need to install cmake)
 endif
 
+# Verificador para garantir que o JDK 17 está instalado usando o método METHOD_DEPCHECK
 ifneq ($(call METHOD_DEPCHECK,$(BOOTJDK)/javac -version),1)
-$(error You need to install JDK 8)
+$(error You need to install JDK 17)
 endif
 
+# Verificação para garantir que o JDK instalado é a versão 17.0
 ifeq ($(IOS),0)
-ifeq ($(filter 1.8.0,$(shell $(BOOTJDK)/javac -version &> javaver.txt && cat javaver.txt | cut -b 7-11 && rm -rf javaver.txt)),)
-$(error You need to install JDK 8)
+ifeq ($(filter 17.0,$(shell $(BOOTJDK)/javac -version &> javaver.txt && cat javaver.txt | cut -b 7-11 && rm -rf javaver.txt)),)
+$(error You need to install JDK 17)
 endif
 endif
 
