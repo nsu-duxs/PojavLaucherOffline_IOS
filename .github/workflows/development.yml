@@ -52,8 +52,7 @@ jobs:
 
       - name: Install JDK 8
         run: |
-          brew info java8
-          brew install java8
+          brew install --cask graalvm-jdk@17
 
       - name: Get gl4es latest commit hash
         id: gl4es-sha
